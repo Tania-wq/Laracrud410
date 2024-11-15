@@ -7,6 +7,8 @@ use App\Models\Brand;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use function Laravel\Prompts\alert;
+
 class ProductController extends Controller
 {
     /**
@@ -54,7 +56,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        echo "Edit Productos";
+        $brands = Brand::pluck('id', 'brand');
+        echo view ('products_edit', compact('brands','product'));
+        
     }
 
     /**
@@ -62,14 +66,24 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        echo "Update Productos";
+        $product->update($request->all()); // actualizamos los datos en la base de datos
+        return to_route('products.index') -> with ('status', 'Producto Actualizado');
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    public function delete(Product $product)
+    
+    {
+        echo view ('products_delete', compact('product'));
+    }
+
     public function destroy(Product $product)
     {
-        echo "Destroy Productos";
+        $product->delete();
+        return to_route ('products.index') -> with ('status', 'Produto Eliminado');
     }
+
+
 }
