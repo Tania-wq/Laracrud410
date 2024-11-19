@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
+use App\Models\Sale;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view ('admin/sales/index');
     }
 
     /**
@@ -21,7 +21,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view ('admin/brands/create'); // llamar vista organizada
+        //
     }
 
     /**
@@ -29,14 +29,13 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        Brand::create($request->all());
-        return to_route('admin/products/index') -> with ('status', 'Marca Registrada');
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Brand $brand)
+    public function show(Sale $sale)
     {
         //
     }
@@ -44,7 +43,7 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Brand $brand)
+    public function edit(Sale $sale)
     {
         //
     }
@@ -52,7 +51,7 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, Sale $sale)
     {
         //
     }
@@ -60,7 +59,7 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Brand $brand)
+    public function destroy(Sale $sale)
     {
         //
     }

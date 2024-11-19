@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::get(); // Obtener todos los datos de la tabla
-        return view ('products_index', compact('products'));
+        return view ('admin/products/index', compact('products'));
     }
 
     /**
@@ -28,7 +28,7 @@ class ProductController extends Controller
         //$brands = Brand::get(); Para obtener todos los datos de un modelo o tabla
         $brands = Brand::pluck('id', 'brand'); // Obtener datos específicos
        // dd($brands); // Verificar que los datos se extraen
-        return view ('products_create', compact('brands'));
+        return view ('admin/products/create', compact('brands'));
     }
 
     /**
@@ -48,7 +48,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products_show', compact('product'));
+        return view('admin/products/show', compact('product'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $brands = Brand::pluck('id', 'brand');
-        echo view ('products_edit', compact('brands','product'));
+        echo view ('admin/products/edit', compact('brands','product'));
         
     }
 
@@ -76,13 +76,13 @@ class ProductController extends Controller
     public function delete(Product $product)
     
     {
-        echo view ('products_delete', compact('product'));
+        echo view ('admin/products/delete', compact('product'));
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
-        return to_route ('products.index') -> with ('status', 'Produto Eliminado');
+        return to_route ('products.index') -> with ('status', 'Producto Eliminado');
     }
 
 
