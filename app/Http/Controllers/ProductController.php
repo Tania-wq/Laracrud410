@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Brand;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Products\StoreRequest;
 
 use function Laravel\Prompts\alert;
 
@@ -16,7 +17,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get(); // Obtener todos los datos de la tabla
+        //$products = Product::get(); // Obtener todos los datos de la tabla
+        $products = Product::paginate(3);
         return view ('admin/products/index', compact('products'));
     }
 
@@ -34,7 +36,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         //echo "Registro Realizado";
         //dd($request);
@@ -66,7 +68,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all()); // actualizamos los datos en la base de datos
+        $data = $request->all();
+
+            // Si el campo imagen tiene información
+            if(isset($data["imagen"])){
+                // Cambiar el nombre del archivo a cargar
+                $data["imagen"] = $filename = time().".".$data["imagen"]->extension();
+                // Guardar imagen en la carpeta pública
+                $request->imagen->move(public_path("image/products"), $filename);
+            }
+
+        $product->update($data); // actualizamos los datos en la base de datos
+        
+        
         return to_route('products.index') -> with ('status', 'Producto Actualizado');
     }
 

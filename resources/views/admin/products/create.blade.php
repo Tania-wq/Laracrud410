@@ -6,6 +6,14 @@
 
 <h1> Create de Productos </h1>
 
+@if ($errors->any())
+    @foreach ($errors->all() as $e)
+        <div class="error">
+            {{$e}}
+        </div>
+    @endforeach
+@endif
+
 <form action="{{route('products.store')}}" method="POST">
     @csrf
     <label for=""> Nombre del Producto </label>
