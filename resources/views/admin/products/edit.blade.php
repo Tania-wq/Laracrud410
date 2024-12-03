@@ -1,39 +1,46 @@
+<!-- resources/views/admin/products/edit.blade.php -->
+
 @extends('layout.main_template')
 
 @section('content')
+@include('fragments.formstyle')
+<h2>Editar Producto</h2>
 
-@include('fragments.formstyles')
-
-<h1> Editar Productos </h1>
-
-<form action="{{route('products.update', $product->id)}}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <label for=""> Nombre del Producto </label>
-    <input type="text" name= "nameProduct" value="{{$product->nameProduct}}">
+    
+    <div>
+        <label for="nameProducts">Nombre del producto:</label>
+        <input type="text" name="nameProducts" id="nameProducts" value="{{ $product->nameProducts }}" required>
+    </div>
 
-    <label for=""> Marca </label>
-    <br>
-    <select name= "brand_id">
-        <option value="">Selecciona. . .</option>
-        
-        @foreach ( $brands as $brand => $id)
-        <option {{$product->brand_id == $id ? 'selected': ''}} value="{{$id}}">{{$brand}}</option>
-        @endforeach
+    <div>
+        <label for="brand_id">Marca:</label>
+        <select name="brand_id" id="brand_id" required>
+            @foreach ($brands as $id => $name)
+                <option value="{{ $id }}" {{ $product->brand_id == $id ? 'selected' : '' }}>{{ $name }}</option>
+            @endforeach
+        </select>
+    </div>
 
-    </select>
-    <br>
-    <br>
-    <label for=""> Cantidad </label>
-    <input type="number" name= "stock" value="{{$product->stock}}">
+    <div>
+        <label for="stock">Cantidad:</label>
+        <input type="number" name="stock" id="stock" value="{{ $product->stock }}" required>
+    </div>
 
-    <label for=""> Precio Unitario</label>
-    <input type="text" name= "unit_price" value="{{$product->unit_price}}">
+    <div>
+        <label for="unit_price">Precio:</label>
+        <input type="number" name="unit_price" id="unit_price" value="{{ $product->unit_price }}" step="0.01" required>
+    </div>
 
-    <label for=""> Imagen </label>
-    <input type="file" name="imagen">
+    <div>
+        <label for="imagen">Imagen (opcional):</label>
+        <input type="file" name="imagen" id="imagen" accept="image/*">
+    </div>
 
-    <button type="submit"> Registrar </button>
+    <div>
+        <button type="submit">Actualizar Producto</button>
+    </div>
 </form>
-
 @endsection

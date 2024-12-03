@@ -2,19 +2,32 @@
 
 @section('content')
 
-@include('fragments.formstyles')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<h1> Regitrar Marcas </h1>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
 
+</div>
+
+<h1>Create de brand</h1>
+
+
+<button class="btn btn-secondary">
+    <a href="{{ route('products.index') }}" class="text-white text-decoration-none">
+        <i class="fa-solid fa-candy"></i> Productos
+    </a>
+</button>
 <form action="{{route('brands.store')}}" method="POST">
-    @csrf
-    <label for=""> Nombre de la Marca </label>
-    <input type="text" name= "brand">
+@csrf
 
-    <label for=""> Descripción </label>
-    <input type="text" name= "description">
+<label for="">Nombre de la marca</label>
+<input type="text" name="brand">
 
-    <button type="submit"> Registrar </button>
+<label for="">Descripcion</label>
+<input type="text" name="description">
+
+<br>
+<button type="submit"> Registrar </button>
 </form>
+
 
 @endsection
