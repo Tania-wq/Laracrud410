@@ -1,4 +1,4 @@
-@ex@extends('layout.main_template')
+@extends('layout.main_template')
 
 @section('content')
 

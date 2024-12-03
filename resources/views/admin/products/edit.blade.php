@@ -3,7 +3,11 @@
 @extends('layout.main_template')
 
 @section('content')
-@include('fragments.formstyle')
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
 <h2>Editar Producto</h2>
 
 <form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data">
@@ -12,7 +16,7 @@
     
     <div>
         <label for="nameProducts">Nombre del producto:</label>
-        <input type="text" name="nameProducts" id="nameProducts" value="{{ $product->nameProducts }}" required>
+        <input type="text" name="nameProduct" id="nameProduct" value="{{ $product->nameProducts }}" required>
     </div>
 
     <div>
