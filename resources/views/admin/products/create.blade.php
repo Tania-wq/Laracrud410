@@ -1,45 +1,63 @@
+<!-- resources/views/admin/products/create.blade.php -->
+
 @extends('layout.main_template')
 
 @section('content')
 
-@include('fragments.formstyles')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<h1> Create de Productos </h1>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
+<h2>Crear Producto</h2>
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 @if ($errors->any())
     @foreach ($errors->all() as $e)
-        <div class="error">
-            {{$e}}
-        </div>
+    <div class="error">
+        {{$e}}
+    
     @endforeach
 @endif
 
-<form action="{{route('products.store')}}" method="POST">
+</div>
+<button class="btn btn-secondary">
+    <a href="{{ route('products.index') }}" class="text-white text-decoration-none">
+        <i class="fa-solid fa-candy"></i> Productos
+    </a>
+</button>
+<form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <label for=""> Nombre del Producto </label>
-    <input type="text" name= "nameProduct">
+    <div>
+        <label for="nameProducts">Nombre del producto:</label>
+        <input type="text" name="nameProduct" id="nameProduct" required>
+    </div>
 
-    <label for=""> Marca </label>
-    <br>
-    <select name= "brand_id">
-        <option value="">Selecciona. . .</option>
-         @foreach ( $brands as $brand => $id)
-             <option value="{{$id}}">{{$brand}}</option>
-         @endforeach
+    <div>
+        <label for="brand_id">Marca:</label>
+        <select name="brand_id" id="brand_id" required>
+            @foreach ($brands as $id => $name)
+                <option value="{{ $id }}">{{ $name }}</option>
+            @endforeach
+        </select>
+    </div>
 
-    </select>
-    <br>
-    <br>
-    <label for=""> Cantidad </label>
-    <input type="number" name= "stock">
+    <div>
+        <label for="stock">Cantidad:</label>
+        <input type="number" name="stock" id="stock" required>
+    </div>
 
-    <label for=""> Precio Unitario</label>
-    <input type="text" name= "unit_price">
+    <div>
+        <label for="unit_price">Precio:</label>
+        <input type="number" name="unit_price" id="unit_price" step="0.01" required>
+    </div>
 
-    <label for=""> Imagen </label>
-    <input type="file" name="imagen">
+    <div>
+        <label for="imagen">Imagen:</label>
+        <input type="file" name="imagen" id="imagen" accept="image/*">
+    </div>
 
-    <button type="submit"> Registrar </button>
+    <div>
+        <button type="submit">Guardar Producto</button>
+    </div>
 </form>
-
 @endsection

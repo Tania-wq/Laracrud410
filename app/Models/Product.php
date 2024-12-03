@@ -1,25 +1,28 @@
 <?php
+// app/Models/Product.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class Product extends Model
 {
     use HasFactory;
 
+    
     protected $fillable = [
-        'nameProduct',
+        'nameProduct', 
+        'stock', 
+        'unit_price', 
+        'imagen', 
         'brand_id',
-        'stock',
-        'unit_price',
-        'imagen'
     ];
 
-    public function brand():BelongsTo
+    
+    public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Brand::class);
     }
 }

@@ -9,7 +9,15 @@ class Brand extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'brand',
         'description'
+
     ];
+
+   
+public function brand()
+{
+    return $this->belongsTo(Brand::class);
+}
 }

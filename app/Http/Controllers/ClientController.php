@@ -3,64 +3,75 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        return view ('admin/clients/index');
+        $clients = Client::paginate(4);
+        return view('admin.clients.index', compact('clients'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
-        //
+        return view('admin.clients.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:40',
+            'last_name' => 'required|string|max:40',
+            'second_last_name' => 'nullable|string|max:40',
+            'email' => 'required|email|max:50|unique:clients,email',
+            'phone' => 'nullable|digits_between:10,15',
+        ]);
+
+        Client::create($validated);
+        return to_route('clients.index')->with('status', 'Cliente registrado');
     }
 
-    /**
-     * Display the specified resource.
-     */
+   
     public function show(Client $client)
     {
-        //
+        return view('admin.clients.show', compact('client'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(Client $client)
     {
-        //
+        return view('admin.clients.edit', compact('client'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, Client $client)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:40',
+            'last_name' => 'required|string|max:40',
+            'second_last_name' => 'nullable|string|max:40',
+            'email' => 'required|email|max:50|unique:clients,email,' . $client->id,
+            'phone' => 'nullable|digits_between:10,15',
+        ]);
+
+        $client->update($validated);
+        return to_route('clients.index')->with('status', 'Cliente actualizado');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
+    public function destroyConfirm(Client $client)
+    {
+        return view('admin.clients.delete', compact('client'));
+    }
+
+    
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return to_route('clients.index')->with('status', 'Cliente eliminado');
     }
 }

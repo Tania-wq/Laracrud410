@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id('sale_id');
-            $table->foreignId('client_id') -> nullable ();
-            $table->foreignId('product_id') -> nullable ();
+
+            $table->foreignId('client_id') -> nullable();
+            $table->foreignId('product_id') -> nullable();
             $table->date('sale_date')->nullable();
+            
             $table->timestamps();
 
-            $table->foreign('client_id')->references('id')->on('clients')
-            ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('product_id')->references('id')->on('products')
-            ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
